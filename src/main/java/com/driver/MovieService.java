@@ -9,19 +9,16 @@ import java.util.ArrayList;
 public class MovieService {
     @Autowired
     MovieRepository movieRepository;
-    public String addMovie(Movie movie) {
+    public void addMovie(Movie movie) {
         movieRepository.addMovie(movie);
-       return "Movie added Succefully!!!";
     }
 
-    public String addDirector(Director director) {
+    public void addDirector(Director director) {
         movieRepository.addDirector(director);
-        return "Added Succefully!!";
     }
 
-    public String add_movie_director_pair(String dname, String mname) {
+    public void add_movie_director_pair(String dname, String mname) {
         movieRepository.add_movie_director_pair(dname,mname);
-        return "Operation Successful!!!";
     }
 
     public Movie getMovie(String mname) {
@@ -40,13 +37,11 @@ public class MovieService {
         return movieRepository.getAllMovies();
     }
 
-    public String delete_director(String dname) {
+    public void delete_director(String dname) {
         movieRepository.delete_director(dname);
-        return "Successfully deletion";
     }
 
-    public String delete_director() {
+    public void delete_director() {
         movieRepository.delete_director();
-        return "Successfully deletion";
     }
 }

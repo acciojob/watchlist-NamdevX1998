@@ -1,10 +1,11 @@
 package com.driver;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/movies")
@@ -12,47 +13,56 @@ public class MovieController {
     @Autowired
     MovieService movieService;
     @PostMapping("/add-movie")
-    public String addMovie(@RequestBody Movie movie){
-        return movieService.addMovie(movie);
+    public ResponseEntity<String> addMovie(@RequestBody Movie movie){
+        movieService.addMovie(movie);
+        return new ResponseEntity<>("New movie added Successfully", HttpStatus.CREATED);
     }
 
     @PostMapping("/add-director")
-    public String addDirector(@RequestBody Director director){
-        return movieService.addDirector(director);
+    public ResponseEntity<String> addDirector(@RequestBody Director director){
+        movieService.addDirector(director);
+        return new ResponseEntity<>("New directed added Successfully", HttpStatus.CREATED);
     }
 
     @PutMapping("/add-movie-director-pair")
-    public String add_movie_director_pair(@RequestParam("dname") String dname,@RequestParam("mname") String mname){
+    public ResponseEntity<String> add_movie_director_pair(@RequestParam("dname") String dname,@RequestParam("mname") String mname){
         //dname->director name mname->movie name
-        return movieService.add_movie_director_pair(dname,mname);
+        movieService.add_movie_director_pair(dname,mname);
+        return new ResponseEntity<>("New movie-director pair added Successfully", HttpStatus.CREATED);
     }
 
     @GetMapping("/get-movie-by-name/{movie_name}")
-    public Movie getMovie(@PathVariable("movie_name") String mname){
-        return movieService.getMovie(mname);
+    public ResponseEntity<Movie> getMovie(@PathVariable("movie_name") String mname){
+        Movie m=movieService.getMovie(mname);
+        return new ResponseEntity<>(m,HttpStatus.CREATED);
     }
 
     @GetMapping("/get-director-by-name/{director-name}")
-    public Director getDirector(@PathVariable ("director-name") String name){
-        return movieService.getDirector(name);
+    public ResponseEntity<Director> getDirector(@PathVariable ("director-name") String name){
+        Director d=movieService.getDirector(name);
+        return new ResponseEntity<>(d,HttpStatus.CREATED);
     }
 
-    @GetMapping("/get-movies-by-director-name/{director}")   //not display a result
-    public ArrayList<String> getAllMovies(@PathVariable("director")String dname){
-        return movieService.getAllMovies(dname);
+    @GetMapping("/get-movies-by-director-name/{director}")
+    public ResponseEntity<ArrayList<String>> getAllMovies(@PathVariable("director")String dname){
+        ArrayList<String>m=movieService.getAllMovies(dname);
+        return new ResponseEntity<>(m,HttpStatus.CREATED);
     }
     @GetMapping("/get-all-movies")
-    public ArrayList<String> getAllMovies(){
-        return movieService.getAllMovies();
+    public ResponseEntity<ArrayList<String>> getAllMovies(){
+        ArrayList<String>m=movieService.getAllMovies();
+        return new ResponseEntity<>(m,HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete-director-by-name/{director_name}")
-    public String delete_director(@PathVariable("director_name") String dname){
-        return movieService.delete_director(dname);
+    @DeleteMapping("/delete-director-by-name")
+    public ResponseEntity<String> delete_director(@RequestParam("director_name") String dname){
+        movieService.delete_director(dname);
+        return new ResponseEntity<>(dname+" is removed successfully.",HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete-all-directors")
-    public String delete_all_director(){
-        return movieService.delete_director();
+    public ResponseEntity<String> delete_all_director(){
+        movieService.delete_director();
+        return new ResponseEntity<>("All directors are removed successfully.",HttpStatus.CREATED);
     }
 }
