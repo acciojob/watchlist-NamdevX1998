@@ -2,6 +2,7 @@ package com.driver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 import java.util.ArrayList;
 
@@ -29,11 +30,11 @@ public class MovieService {
         return movieRepository.getDirector(name);
     }
 
-    public ArrayList<String> getAllMovies(String name){
+    public List<String> getAllMovies(String name){
         return movieRepository.getAllMovies(name);
     }
 
-    public ArrayList<String> getAllMovies() {
+    public List<String> getAllMovies() {
         return movieRepository.getAllMovies();
     }
 
