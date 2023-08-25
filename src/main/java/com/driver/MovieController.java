@@ -25,7 +25,7 @@ public class MovieController {
     }
 
     @PutMapping("/add-movie-director-pair")
-    public ResponseEntity<String> add_movie_director_pair(@RequestParam("dname") String dname,@RequestParam("mname") String mname){
+    public ResponseEntity<String> addMovieDirectorPair(@RequestParam("dname") String dname,@RequestParam("mname") String mname){
         //dname->director name mname->movie name
         movieService.add_movie_director_pair(dname,mname);
         return new ResponseEntity<>("New movie-director pair added Successfully", HttpStatus.OK);
@@ -38,31 +38,31 @@ public class MovieController {
     }
 
     @GetMapping("/get-director-by-name/{director-name}")
-    public ResponseEntity<Director> getDirector(@PathVariable ("director-name") String name){
+    public ResponseEntity<Director> getDirectorByName(@PathVariable ("director-name") String name){
         Director d=movieService.getDirector(name);
         return new ResponseEntity<>(d,HttpStatus.OK);
     }
 
     @GetMapping("/get-movies-by-director-name/{director}")
-    public ResponseEntity<ArrayList<String>> getAllMovies(@PathVariable("director")String dname){
+    public ResponseEntity<ArrayList<String>> getMoviesByDirectorName(@PathVariable("director")String dname){
         ArrayList<String>m=movieService.getAllMovies(dname);
         return new ResponseEntity<>(m,HttpStatus.OK);
     }
     @GetMapping("/get-all-movies")
-    public ResponseEntity<ArrayList<String>> getAllMovies(){
+    public ResponseEntity<ArrayList<String>> findAllMovies(){
         ArrayList<String>m=movieService.getAllMovies();
         return new ResponseEntity<>(m,HttpStatus.OK);
     }
     //hello
 
     @DeleteMapping("/delete-director-by-name")
-    public ResponseEntity<String> delete_director(@RequestParam("director_name") String dname){
+    public ResponseEntity<String> deleteDirectorByName(@RequestParam("director_name") String dname){
         movieService.delete_director(dname);
         return new ResponseEntity<>(dname+" is removed successfully.",HttpStatus.OK);
     }
 
     @DeleteMapping("/delete-all-directors")
-    public ResponseEntity<String> delete_all_director(){
+    public ResponseEntity<String> deleteAllDirectors(){
         movieService.delete_director();
         return new ResponseEntity<>("All directors are removed successfully.",HttpStatus.OK);
     }
