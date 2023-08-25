@@ -54,7 +54,6 @@ public class MovieController {
         List<String>m=movieService.getAllMovies();
         return new ResponseEntity<>(m,HttpStatus.OK);
     }
-    //hello
 
     @DeleteMapping("/delete-director-by-name")
     public ResponseEntity<String> deleteDirectorByName(@RequestParam("director_name") String dname){

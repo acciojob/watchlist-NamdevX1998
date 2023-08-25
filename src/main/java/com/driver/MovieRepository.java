@@ -48,7 +48,7 @@ public class MovieRepository {
     public List<String> getAllMovies(String dname){
         if(directorMovieMapping.containsKey(dname))
         return directorMovieMapping.get(dname);
-        return null;
+        return new ArrayList<>();
     }
     public List<String> getAllMovies() {
         List<String>ans=new ArrayList<>();
@@ -68,15 +68,19 @@ public class MovieRepository {
             movieMap.remove(delete);
         }
         directorMap.remove(dname);
+        if(directorMap.containsKey(dname))
+            directorMap.remove(dname);
     }
 
     public void delete_director() {
+        if(directorMap.size()!=0)
+            directorMap.clear();
+
         for(List<String>movies:directorMovieMapping.values()){
             for(String s:movies){
                 movieMap.remove(s);
             }
         }
-        directorMap.clear();
         directorMovieMapping.clear();
     }
 }
