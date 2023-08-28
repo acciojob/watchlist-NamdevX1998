@@ -125,8 +125,10 @@ public class MovieRepository {
     }
 
     public void deleteAllDirectors() {
-        if(directorMovieMapping.size()==0)
+        if(directorMovieMapping.size()==0){
             directorMap.clear();
+            return;
+        }
 
         List<Movie>m=new ArrayList<>();
         for(List<Movie>movies:directorMovieMapping.values()){
